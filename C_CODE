@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <ctype.h>
+//#include <time.h>
+#include <unistd.h>
+
+#define YELLOW_DURATION 2  // Duration of yellow light (seconds)
+#define GREEN_FOR_TRAFFIC 15  // Duration of green light for traffic (seconds)
+#define GREEN_FOR_PEDESTRIANS 10  // Duration of green light for pedestrians (seconds)
+#define RED_DURATION 1  // Duration of red light (seconds)
+
+int Traffic_light() {
+  char ch;
+  int isNight = 0;
+
+  while (1) {
+    printf("Enter 'n' for night mode, 'd' for day mode (or any other key to quit): ");
+  while ((getchar()) != '\n');
+
+    ch = tolower(ch);
+    if (ch == 'n') {
+      isNight = 1;
+      printf("Pedestrian Light: OFF\n");
+
+      while (1) {
+        printf("Traffic Light: YELLOW\n");
+        sleep(YELLOW_DURATION);
+      }
+
+      isNight = 0; // Reset night mode flag
+    } 
+
+else if (ch == 'd') {
+printf("Entering day mode...\n");
+      while (1) {
+        // Traffic light sequence
+        printf("Pedestrian Waiting: Red\n");
+        printf("Traffic Light: Green\n");
+        sleep(GREEN_FOR_TRAFFIC);
+
+        printf("Traffic Light: Yellow\n");
+        sleep(YELLOW_DURATION);
+
+        printf("Traffic Light: Red\n");
+        sleep(RED_DURATION);
+
+        // Pedestrian crossing sequence
+        printf("Pedestrian Crossing: Green\n");
+        printf("Traffic Light: Red\n");
+        sleep(GREEN_FOR_PEDESTRIANS);
+printf("Traffic Light: Yellow\n");
+        sleep(YELLOW_DURATION);
+        printf("Traffic Light: Green\n");
+        sleep(RED_DURATION); // Short green for traffic after pedestrian crossing
+      }
+    } else {
+      printf("Exiting...\n");
+      break;
+    }
+  }
+  return 0;
+}
+int main() {
+  Traffic_light();
+  return 0;
+}
+
